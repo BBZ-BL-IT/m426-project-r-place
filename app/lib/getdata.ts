@@ -16,15 +16,14 @@ export async function fetchPixels(): Promise<PixelType[]> {
       return [];
     }
 
-    const mappedPixels: PixelType[] =
+    return (
       pixels?.map((pixel) => ({
         id: pixel.id,
         x: pixel.x_position,
         y: pixel.y_position,
         color: pixel.color,
-      })) || [];
-
-    return mappedPixels;
+      })) || []
+    );
   } catch (error) {
     console.error("Error fetching pixels:", error);
     return [];
