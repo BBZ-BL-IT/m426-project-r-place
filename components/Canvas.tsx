@@ -1,13 +1,7 @@
-"use client";
-
 import Pixel from "@/components/Pixel";
 import { Tooltip } from "@nextui-org/tooltip";
 
 export default function Canvas({ pixelData }: { pixelData: any[] }) {
-  function handleClick() {
-    alert("Sign in to edit canvas!");
-  }
-
   const style = {
     width: "512px",
     height: "512px",
@@ -15,7 +9,7 @@ export default function Canvas({ pixelData }: { pixelData: any[] }) {
   };
   return (
     <Tooltip content="Log in to edit canvas!">
-      <div className="relative" style={style} onClick={handleClick}>
+      <div className="relative" style={style}>
         {pixelData.map((pixel, index) => (
           <Pixel key={index} color={pixel.color} x={pixel.x} y={pixel.y} />
         ))}
