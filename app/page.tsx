@@ -1,31 +1,11 @@
 import Canvas from "@/app/components/Canvas";
 import AuthButton from "@/app/components/AuthButton";
+import { fetchPixels } from "@/app/lib/getdata";
+import { PixelType } from "@/app/lib/definitions";
 
 export default async function Index() {
-  const pixelData = [
-    { color: "#1da1f2", x: 34, y: 25 },
-    { color: "#1da1f2", x: 35, y: 24 },
-    { color: "#1da1f2", x: 36, y: 24 },
-    { color: "#1da1f2", x: 37, y: 25 },
-    { color: "#1da1f2", x: 38, y: 26 },
-    { color: "#1da1f2", x: 38, y: 27 },
-    { color: "#1da1f2", x: 37, y: 28 },
-    { color: "#1da1f2", x: 36, y: 29 },
-    { color: "#1da1f2", x: 35, y: 30 },
-    { color: "#1da1f2", x: 34, y: 31 },
-    { color: "#ef1515", x: 33, y: 32 },
-    { color: "#ef1515", x: 33, y: 26 },
-    { color: "#ef1515", x: 32, y: 25 },
-    { color: "#ef1515", x: 31, y: 24 },
-    { color: "#ef1515", x: 30, y: 24 },
-    { color: "#ef1515", x: 29, y: 25 },
-    { color: "#ef1515", x: 28, y: 26 },
-    { color: "#ef1515", x: 28, y: 27 },
-    { color: "#ef1515", x: 29, y: 28 },
-    { color: "#ef1515", x: 30, y: 29 },
-    { color: "#ef1515", x: 31, y: 30 },
-    { color: "#ef1515", x: 32, y: 31 },
-  ];
+  const pixelData: PixelType[] = await fetchPixels();
+
   return (
     <div className="flex-1 w-full flex flex-col gap-20 items-center">
       <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
