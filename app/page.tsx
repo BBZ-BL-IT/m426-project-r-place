@@ -1,5 +1,5 @@
-import Canvas from "@/components/Canvas";
-import AuthButton from "../components/AuthButton";
+import Canvas from "@/app/components/Canvas";
+import AuthButton from "@/app/components/AuthButton";
 
 export default async function Index() {
   const pixelData = [
