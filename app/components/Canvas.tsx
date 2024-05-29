@@ -1,4 +1,4 @@
-import Pixel from "@/components/Pixel";
+import Pixel from "@/app/components/Pixel";
 import { Tooltip } from "@nextui-org/tooltip";
 
 export default function Canvas({ pixelData }: { pixelData: any[] }) {
