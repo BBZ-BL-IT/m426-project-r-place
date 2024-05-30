@@ -2,20 +2,27 @@ import AuthButton from "@/app/components/AuthButton";
 import Canvas from "@/app/components/Canvas";
 import { PixelType } from "@/app/lib/definitions";
 import { fetchPixels } from "@/app/lib/getdata";
-import { Home } from "@/node_modules/@mui/icons-material";
-import { Button } from "@mui/material";
+import { redirect } from "@/node_modules/next/navigation";
 import { Tooltip } from "@nextui-org/tooltip";
 
 export default async function Index() {
   const pixelData: PixelType[] = await fetchPixels();
 
+  const redirectToDashboard = async () => {
+    "use server";
+
+    return redirect("/dashboard");
+  };
+
   return (
     <div className="flex-1 w-full flex flex-col gap-20 items-center">
       <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
         <div className="w-full max-w-4xl flex justify-between items-center p-3 text-sm">
-          <Button className="bg-white" href={"/dashboard"}>
-            <Home className="text-black" />
-          </Button>
+          <form action={redirectToDashboard}>
+            <button className="py-2 px-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover">
+              <p className="text-white">Dashboard</p>
+            </button>
+          </form>
           <AuthButton />
         </div>
       </nav>
