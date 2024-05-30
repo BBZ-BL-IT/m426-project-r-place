@@ -2,10 +2,10 @@ import { createClient } from "@/app/lib/supabase/server";
 import { PixelType } from "@/app/lib/definitions";
 import { unstable_noStore as noStore } from "next/cache";
 
-const supabase = createClient();
-
 export async function fetchPixels(): Promise<PixelType[]> {
   noStore();
+  const supabase = createClient();
+
   try {
     const { data: pixels, error } = await supabase
       .from("pixel")
