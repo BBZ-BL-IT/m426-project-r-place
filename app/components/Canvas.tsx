@@ -1,5 +1,4 @@
 import Pixel from "@/app/components/Pixel";
-import { Tooltip } from "@nextui-org/tooltip";
 import { PixelType } from "@/app/lib/definitions";
 
 export default function Canvas({ pixelData }: { pixelData: PixelType[] }) {
@@ -10,12 +9,10 @@ export default function Canvas({ pixelData }: { pixelData: PixelType[] }) {
   };
 
   return (
-    <Tooltip content="Log in to edit canvas!">
-      <div className="relative" style={style}>
-        {pixelData.map((pixel) => (
-          <Pixel key={pixel.id} pixel={pixel} />
-        ))}
-      </div>
-    </Tooltip>
+    <div className="relative" style={style}>
+      {pixelData.map((pixel) => (
+        <Pixel key={pixel.id} pixel={pixel} />
+      ))}
+    </div>
   );
 }
