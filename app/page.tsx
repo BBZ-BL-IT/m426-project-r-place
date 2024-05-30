@@ -1,7 +1,10 @@
-import Canvas from "@/app/components/Canvas";
 import AuthButton from "@/app/components/AuthButton";
-import { fetchPixels } from "@/app/lib/getdata";
+import Canvas from "@/app/components/Canvas";
 import { PixelType } from "@/app/lib/definitions";
+import { fetchPixels } from "@/app/lib/getdata";
+import { Home } from "@/node_modules/@mui/icons-material";
+import { Button } from "@mui/material";
+import { Tooltip } from "@nextui-org/tooltip";
 
 export default async function Index() {
   const pixelData: PixelType[] = await fetchPixels();
@@ -9,14 +12,19 @@ export default async function Index() {
   return (
     <div className="flex-1 w-full flex flex-col gap-20 items-center">
       <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
-        <div className="w-full max-w-4xl flex justify-end items-center p-3 text-sm">
+        <div className="w-full max-w-4xl flex justify-between items-center p-3 text-sm">
+          <Button className="bg-white" href={"/dashboard"}>
+            <Home className="text-black" />
+          </Button>
           <AuthButton />
         </div>
       </nav>
 
       <div className="animate-in flex-1 flex flex-col gap-20 opacity-0 max-w-4xl px-3 mb">
         <main className="flex-1 flex flex-col gap-6">
-          <Canvas pixelData={pixelData} />
+          <Tooltip content="Log in to edit pixels!">
+            <Canvas pixelData={pixelData} />
+          </Tooltip>
         </main>
       </div>
 
