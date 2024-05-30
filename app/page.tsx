@@ -18,24 +18,25 @@ export default async function Index() {
     <div className="flex-1 w-full flex flex-col gap-20 items-center">
       <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
         <div className="w-full max-w-4xl flex justify-between items-center p-3 text-sm">
-          <form action={redirectToDashboard}>
-            <button className="py-2 px-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover">
-              <img
-                className="w-5 h-5"
-                src="/images/home-white.svg"
-                alt="home"
-              />
-            </button>
-          </form>
+          <Tooltip content="Dashboard" placement="left">
+            <form action={redirectToDashboard}>
+              <button className="py-2 px-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover">
+                <img
+                  className="w-5 h-5"
+                  src="/images/home-white.svg"
+                  alt="home"
+                />
+              </button>
+            </form>
+          </Tooltip>
+
           <AuthButton />
         </div>
       </nav>
 
       <div className="animate-in flex-1 flex flex-col gap-20 opacity-0 max-w-4xl px-3 mb">
         <main className="flex-1 flex flex-col gap-6">
-          <Tooltip content="Log in to edit pixels!">
-            <Canvas pixelData={pixelData} />
-          </Tooltip>
+          <Canvas pixelData={pixelData} showOverlay={false} />
         </main>
       </div>
 
