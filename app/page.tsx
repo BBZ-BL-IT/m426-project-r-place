@@ -2,7 +2,6 @@ import AuthButton from "@/app/components/AuthButton";
 import Canvas from "@/app/components/Canvas";
 import { PixelType } from "@/app/lib/definitions";
 import { fetchPixels } from "@/app/lib/getdata";
-import { Home } from "@/node_modules/@mui/icons-material";
 import { redirect } from "@/node_modules/next/navigation";
 import { Tooltip } from "@nextui-org/tooltip";
 
@@ -21,7 +20,7 @@ export default async function Index() {
         <div className="w-full max-w-4xl flex justify-between items-center p-3 text-sm">
           <form action={redirectToDashboard}>
             <button className="py-2 px-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover">
-              <Home className="text-white" />
+              <p className="text-white">Dashboard</p>
             </button>
           </form>
           <AuthButton />
