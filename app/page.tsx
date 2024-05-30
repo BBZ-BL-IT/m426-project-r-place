@@ -20,7 +20,11 @@ export default async function Index() {
         <div className="w-full max-w-4xl flex justify-between items-center p-3 text-sm">
           <form action={redirectToDashboard}>
             <button className="py-2 px-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover">
-              <p className="text-white">Dashboard</p>
+              <img
+                className="w-5 h-5"
+                src="/images/home-white.svg"
+                alt="home"
+              />
             </button>
           </form>
           <AuthButton />
