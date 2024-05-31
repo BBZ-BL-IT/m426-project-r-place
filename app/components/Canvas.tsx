@@ -8,9 +8,14 @@ import { Tooltip } from "@nextui-org/tooltip";
 interface CanvasProps {
   pixelData: PixelType[];
   showOverlay: boolean;
+  onPixelClick: (pixel: PixelType) => void; // Neue Prop hinzufügen
 }
 
-export default function Canvas({ pixelData, showOverlay }: CanvasProps) {
+export default function Canvas({
+  pixelData,
+  showOverlay,
+  onPixelClick,
+}: CanvasProps) {
   const style = {
     width: "512px",
     height: "512px",
@@ -18,8 +23,7 @@ export default function Canvas({ pixelData, showOverlay }: CanvasProps) {
   };
 
   const handlePixelClick = (pixel: PixelType) => {
-    // Will follow in Sprint 2
-    console.log("Pixel clicked:", "X:", pixel.x, "Y:", pixel.y);
+    onPixelClick(pixel);
   };
 
   const canvasContent = (
