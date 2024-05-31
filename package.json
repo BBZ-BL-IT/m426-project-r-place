@@ -9,6 +9,7 @@
     "@nextui-org/tooltip": "^2.0.34",
     "@supabase/ssr": "^0.3.0",
     "@supabase/supabase-js": "^2.43.3",
+    "@uiw/react-color-colorful": "^2.3.0",
     "autoprefixer": "10.4.17",
     "geist": "^1.2.1",
     "next": "latest",
