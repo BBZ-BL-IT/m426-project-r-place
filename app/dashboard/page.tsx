@@ -1,5 +1,5 @@
 import AuthButton from "@/app/components/AuthButton";
-import Canvas from "@/app/components/Canvas";
+import Editor from "@/app/components/Editor";
 import { PixelType } from "@/app/lib/definitions";
 import { fetchPixels } from "@/app/lib/getdata";
 import { createClient } from "@/app/lib/supabase/server";
@@ -29,7 +29,7 @@ export default async function DashboardPage() {
 
       <div className="animate-in flex-1 flex flex-col gap-20 opacity-0 max-w-4xl px-3">
         <main className="flex-1 flex flex-col gap-6">
-          <Canvas pixelData={pixelData} showOverlay={true}></Canvas>
+          <Editor pixelData={pixelData} />
         </main>
       </div>
 
