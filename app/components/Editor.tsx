@@ -29,7 +29,7 @@ export default function Editor({ pixelData }: { pixelData: PixelType[] }) {
         showOverlay={true}
         onPixelClick={handlePixelUpdate}
       />
-      <div className="ml-10 content-center">
+      <div className="content-center ml-40">
         <Colorful
           color={hsva}
           disableAlpha={true}

@@ -20,6 +20,8 @@ export default function Canvas({
     width: "512px",
     height: "512px",
     backgroundColor: "white",
+    paddingLeft: "512px",
+    paddingBottom: "512px",
   };
 
   const handlePixelClick = (pixel: PixelType) => {
@@ -29,7 +31,10 @@ export default function Canvas({
   };
 
   const canvasContent = (
-    <div className="relative" style={style}>
+    <div
+      className="relative shadow-2xl border border-black dark:border-white dark:shadow-md dark:shadow-white container"
+      style={style}
+    >
       {pixelData.map((pixel) => (
         <Pixel key={pixel.id} pixel={pixel} />
       ))}
