@@ -8,7 +8,7 @@ import { Tooltip } from "@nextui-org/tooltip";
 interface CanvasProps {
   pixelData: PixelType[];
   showOverlay: boolean;
-  onPixelClick: (pixel: PixelType) => void; // Neue Prop hinzufügen
+  onPixelClick?: (pixel: PixelType) => void;
 }
 
 export default function Canvas({
@@ -23,7 +23,9 @@ export default function Canvas({
   };
 
   const handlePixelClick = (pixel: PixelType) => {
-    onPixelClick(pixel);
+    if (onPixelClick) {
+      onPixelClick(pixel);
+    }
   };
 
   const canvasContent = (
