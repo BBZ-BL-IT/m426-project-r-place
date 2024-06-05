@@ -17,6 +17,35 @@
       --btn-background-hover: 200 10% 12%;
       --foreground: 200 20% 96%;
     }
+
+    .light-mode {
+      display: none;
+    }
+    .dark-mode {
+      display: block;
+    }
+
+    .auth-container {
+      box-shadow: 0 0 50px rgba(255, 255, 255, 0.4);
+      padding: 40px;
+      border-radius: 50px;
+      margin: 10% auto;
+    }
+  }
+
+  @media (prefers-color-scheme: light) {
+    .light-mode {
+      display: block;
+    }
+    .dark-mode {
+      display: none;
+    }
+    .auth-container {
+      box-shadow: 0 0 50px rgba(0, 0, 0, 0.4);
+      padding: 40px;
+      border-radius: 50px;
+      margin: 10% auto;
+    }
   }
 }
 
