@@ -14,13 +14,11 @@ export default function Login({}: {}) {
   const [theme, setTheme] = useState("light");
 
   useEffect(() => {
-    const { data: authListener } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        if (event === "SIGNED_IN") {
-          router.push("/dashboard"); // Redirect to dashboard
-        }
-      },
-    );
+    supabase.auth.onAuthStateChange((event) => {
+      if (event === "SIGNED_IN") {
+        router.push("/dashboard"); // Redirect to dashboard
+      }
+    });
 
     const isDarkMode =
       window.matchMedia &&
@@ -31,38 +29,20 @@ export default function Login({}: {}) {
     return () => {};
   }, []);
   return (
-    <div className="w-full">
-      <div className="auth-container w-1/3 mt-52 light-mode">
-        <Auth
-          supabaseClient={supabase}
-          appearance={{
-            theme: ThemeSupa,
-            variables: {
-              default: {
-                colors: {},
-              },
+    <div className="mt-52 w-1/2 rounded-3xl border p-10 [box-shadow:0_0_100px_rgba(0,_0,_0,_0.3)] dark:[box-shadow:0_0_100px_rgba(255,_255,_255,_0.2)]">
+      <Auth
+        supabaseClient={supabase}
+        appearance={{
+          theme: ThemeSupa,
+          variables: {
+            default: {
+              colors: {},
             },
-          }}
-          theme={theme}
-          providers={[]}
-        />
-      </div>
-
-      <div className="auth-container w-1/3 mt-52 dark-mode">
-        <Auth
-          supabaseClient={supabase}
-          appearance={{
-            theme: ThemeSupa,
-            variables: {
-              default: {
-                colors: {},
-              },
-            },
-          }}
-          theme={theme}
-          providers={[]}
-        />
-      </div>
+          },
+        }}
+        theme={theme}
+        providers={[]}
+      />
     </div>
   );
 }
