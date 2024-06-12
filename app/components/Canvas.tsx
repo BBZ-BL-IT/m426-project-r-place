@@ -32,7 +32,7 @@ export default function Canvas({
 
   const canvasContent = (
     <div
-      className="relative shadow-2xl border border-black dark:border-white dark:shadow-md dark:shadow-white container"
+      className="container relative border border-black [box-shadow:0_0_100px_rgba(0,_0,_0,_0.2)] dark:border-white dark:[box-shadow:0_0_100px_rgba(255,_255,_255,_0.3)]"
       style={style}
     >
       {pixelData.map((pixel) => (
