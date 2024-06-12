@@ -4,6 +4,7 @@ import Canvas from "@/app/components/Canvas";
 import { PixelType } from "@/app/lib/definitions";
 import { useState } from "react";
 import { CirclePicker } from "react-color";
+import AdminComponent from "@/app/components/AdminComponent";
 
 export default function Editor({ pixelData }: { pixelData: PixelType[] }) {
   const [hex, setHex] = useState("#000000");
@@ -55,6 +56,7 @@ export default function Editor({ pixelData }: { pixelData: PixelType[] }) {
             setHex(color.hex);
           }}
         />
+        <AdminComponent />
       </div>
     </div>
   );
