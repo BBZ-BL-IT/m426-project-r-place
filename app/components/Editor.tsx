@@ -5,8 +5,13 @@ import { PixelType } from "@/app/lib/definitions";
 import { useState } from "react";
 import { CirclePicker } from "react-color";
 import AdminComponent from "@/app/components/AdminComponent";
+import { savePixelsToDb } from "@/app/lib/actions";
 
-export default function Editor({ pixelData }: { pixelData: PixelType[] }) {
+interface EditorProps {
+  pixelData: PixelType[];
+}
+
+export default function Editor({ pixelData }: EditorProps) {
   const [hex, setHex] = useState("#000000");
 
   const colors = [
@@ -35,8 +40,7 @@ export default function Editor({ pixelData }: { pixelData: PixelType[] }) {
   ];
 
   const handlePixelUpdate = (pixel: PixelType) => {
-    console.log("Pixel Values:", "x:", pixel.x, "y:", pixel.y, "color:", hex);
-    // Connection to DB --> follows in Sprint 2
+    savePixelsToDb(pixel.x, pixel.y, hex);
   };
 
   return (
