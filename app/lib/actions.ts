@@ -14,7 +14,7 @@ export async function savePixelsToDb(
       .eq("x_position", x)
       .eq("y_position", y);
 
-    if (color === "#ffffff") {
+    if (color === "#ffffff" || color === "deleteSingle") {
       await supabase
         .from("pixel")
         .delete()
