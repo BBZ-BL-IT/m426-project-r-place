@@ -2,6 +2,7 @@ import { Tooltip } from "@nextui-org/tooltip";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import React, { useEffect, useState } from "react";
+import { deleteCanvas } from "@/app/lib/actions";
 
 interface AdminComponentProps {
   onDeleteSingleActive: (active: boolean) => void;
@@ -18,14 +19,10 @@ export default function AdminComponent({
       buttons: [
         {
           label: "Yes",
-          onClick: () => {
-            // Logik
-            console.log("Canvas deleted");
-          },
+          onClick: () => deleteCanvas(),
         },
         {
           label: "No",
-          onClick: () => console.log("Deletion canceled"),
         },
       ],
     });
