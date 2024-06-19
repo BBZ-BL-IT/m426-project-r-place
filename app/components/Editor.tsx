@@ -2,41 +2,45 @@
 
 import Canvas from "@/app/components/Canvas";
 import { PixelType } from "@/app/lib/definitions";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CirclePicker } from "react-color";
 import AdminComponent from "@/app/components/AdminComponent";
 import { savePixelsToDb } from "@/app/lib/actions";
+import { createClient } from "@/app/lib/supabase/client";
 
 interface EditorProps {
   pixelData: PixelType[];
 }
 
-export default function Editor({ pixelData }: EditorProps) {
+const colors = [
+  "#e6194b",
+  "#f58231",
+  "#ffe119",
+  "#bcf60c",
+  "#3cb44b",
+  "#aaffc3",
+  "#46f0f0",
+  "#008080",
+  "#4363d8",
+  "#000075",
+  "#911eb4",
+  "#f032e6",
+  "#e6beff",
+  "#fabebe",
+  "#fffac8",
+  "#9a6324",
+  "#808000",
+  "#808080",
+  "#000000",
+  "#ffffff",
+];
+
+export default function Editor({ pixelData: initialPixelData }: EditorProps) {
   const [hex, setHex] = useState("#000000");
   const [showColorPicker, setShowColorPicker] = useState(true);
-
-  const colors = [
-    "#e6194b",
-    "#f58231",
-    "#ffe119",
-    "#bcf60c",
-    "#3cb44b",
-    "#aaffc3",
-    "#46f0f0",
-    "#008080",
-    "#4363d8",
-    "#000075",
-    "#911eb4",
-    "#f032e6",
-    "#e6beff",
-    "#fabebe",
-    "#fffac8",
-    "#9a6324",
-    "#808000",
-    "#808080",
-    "#000000",
-    "#ffffff",
-  ];
+  const [pixelData] = useState(initialPixelData);
+  const supabase = createClient();
+  const [pixels, setPixels] = useState<PixelType[]>(pixelData);
 
   const handlePixelUpdate = (pixel: PixelType) => {
     savePixelsToDb(pixel.x, pixel.y, hex);
@@ -53,10 +57,63 @@ export default function Editor({ pixelData }: EditorProps) {
     }
   };
 
+  const handleDeleteEvent = (payload: any) => {
+    setPixels((prevPixels) =>
+      prevPixels.filter((pixel) => pixel.id !== payload.old.id),
+    );
+  };
+
+  const handleUpdateEvent = (payload: any) => {
+    setPixels((prevPixels) =>
+      prevPixels.map((pixel) =>
+        pixel.id === payload.old.id
+          ? { ...pixel, color: payload.new.color }
+          : pixel,
+      ),
+    );
+  };
+
+  const handleInsertEvent = (payload: any) => {
+    setPixels((prevPixels) => [
+      ...prevPixels,
+      {
+        id: payload.new.id,
+        x: payload.new.x_position,
+        y: payload.new.y_position,
+        color: payload.new.color,
+      },
+    ]);
+  };
+
+  useEffect(() => {
+    const channel = supabase
+      .channel("schema-db-changes")
+      .on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+        },
+        (payload: any) => {
+          if (payload.eventType === "DELETE") {
+            handleDeleteEvent(payload);
+          } else if (payload.eventType === "UPDATE") {
+            handleUpdateEvent(payload);
+          } else {
+            handleInsertEvent(payload);
+          }
+        },
+      )
+      .subscribe();
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [supabase]);
+
   return (
     <div className="flex flex-row">
       <Canvas
-        pixelData={pixelData}
+        pixelData={pixels}
         showOverlay={true}
         onPixelClick={handlePixelUpdate}
       />
