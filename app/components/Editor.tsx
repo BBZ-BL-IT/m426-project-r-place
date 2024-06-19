@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { CirclePicker } from "react-color";
 import AdminComponent from "@/app/components/AdminComponent";
 import { savePixelsToDb } from "@/app/lib/actions";
+import Countdown, { CountdownApi } from "react-countdown";
 import { createClient } from "@/app/lib/supabase/client";
 
 interface EditorProps {
@@ -36,24 +37,45 @@ const colors = [
 ];
 
 export default function Editor({ pixelData: initialPixelData }: EditorProps) {
-  const [hex, setHex] = useState("#000000");
-  const [showColorPicker, setShowColorPicker] = useState(true);
   const [pixelData] = useState(initialPixelData);
   const supabase = createClient();
   const [pixels, setPixels] = useState<PixelType[]>(pixelData);
+  const [hex, setHex] = useState("#000000");
+  const [showColorPicker, setShowColorPicker] = useState(true);
+  const [countdownApi, setCountdownApi] = useState<CountdownApi | null>(null);
+  const [userAllowed, setUserAllowed] = useState(true);
+  const [endTime, setEndTime] = useState<number | string | Date | undefined>(
+    Date.now() + 10000,
+  );
 
   const handlePixelUpdate = (pixel: PixelType) => {
-    savePixelsToDb(pixel.x, pixel.y, hex);
+    if (userAllowed && hex != "deleteSingle") {
+      savePixelsToDb(pixel.x, pixel.y, hex);
+      if (countdownApi) {
+        setEndTime(Date.now() + 10000);
+        setUserAllowed(false);
+        countdownApi.start();
+      }
+    }
+
+    if (hex === "deleteSingle") {
+      savePixelsToDb(pixel.x, pixel.y, hex);
+    }
   };
 
   const handleAdminDeleteSingle = (active: boolean) => {
-    console.log("Editor: ", active);
     if (active) {
       setHex("deleteSingle");
       setShowColorPicker(false);
     } else {
       setShowColorPicker(true);
       setHex("#000000");
+    }
+  };
+
+  const setRef = (countdown: Countdown | null): void => {
+    if (countdown) {
+      setCountdownApi(countdown.getApi());
     }
   };
 
@@ -118,7 +140,20 @@ export default function Editor({ pixelData: initialPixelData }: EditorProps) {
         onPixelClick={handlePixelUpdate}
       />
       <div className="ml-20 content-center">
-        <div className="h-[250px] w-[250px] content-center rounded-2xl bg-gray-200 pl-4 dark:bg-gray-700">
+        <div className="mb-10 flex items-center justify-center text-3xl">
+          <Countdown
+            className={`${userAllowed ? "text-green-500" : "text-red-500"} rounded-xl p-1 font-bold transition-all`}
+            date={endTime}
+            ref={setRef}
+            onComplete={() => setUserAllowed(true)}
+            autoStart={false}
+            daysInHours={true}
+          />
+        </div>
+        <div
+          className={`h-[210px] w-[260px] content-center rounded-2xl bg-gray-200 pl-4 transition-all dark:bg-gray-700`}
+          style={{ border: `5px solid ${hex}` }}
+        >
           {showColorPicker ? (
             <CirclePicker
               colors={colors}
