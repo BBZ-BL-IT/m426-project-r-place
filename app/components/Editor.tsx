@@ -83,9 +83,9 @@ export default function Editor({ pixelData }: EditorProps) {
         onPixelClick={handlePixelUpdate}
       />
       <div className="ml-20 content-center">
-        <div className="mb-10 flex items-center justify-center text-2xl">
+        <div className="mb-10 flex items-center justify-center text-3xl">
           <Countdown
-            className="font-bold"
+            className={`${userAllowed ? "text-green-500" : "text-red-500"} rounded-xl p-1 font-bold transition-all`}
             date={endTime}
             ref={setRef}
             onComplete={() => setUserAllowed(true)}
@@ -94,7 +94,8 @@ export default function Editor({ pixelData }: EditorProps) {
           />
         </div>
         <div
-          className={`${userAllowed ? "border-4 border-green-600" : "border-4 border-red-500"} h-[200px] w-[250px] content-center rounded-2xl bg-gray-200 pl-4 transition-all dark:bg-gray-700`}
+          className={`h-[210px] w-[260px] content-center rounded-2xl bg-gray-200 pl-4 transition-all dark:bg-gray-700`}
+          style={{ border: `5px solid ${hex}` }}
         >
           {showColorPicker ? (
             <CirclePicker
