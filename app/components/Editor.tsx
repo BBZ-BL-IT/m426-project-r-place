@@ -61,7 +61,7 @@ export default function Editor({ pixelData }: EditorProps) {
         onPixelClick={handlePixelUpdate}
       />
       <div className="ml-20 content-center">
-        <div className="h-[250px] w-[250px] content-center rounded-2xl bg-gray-200 pl-4 dark:bg-gray-700">
+        <div className="h-[200px] w-[250px] content-center rounded-2xl bg-gray-200 pl-4 dark:bg-gray-700">
           {showColorPicker ? (
             <CirclePicker
               colors={colors}
