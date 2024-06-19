@@ -41,3 +41,15 @@ export async function savePixelsToDb(
   }
   console.log("Pixels saved successfully at", x, y, "with color", color);
 }
+
+export async function deleteCanvas() {
+  const supabase = createClient();
+
+  try {
+    await supabase.from("pixel").delete().neq("color", "#ffffff");
+  } catch (error) {
+    console.error("Error deleting canvas");
+  }
+
+  console.log("Canvas deleted successfully");
+}
