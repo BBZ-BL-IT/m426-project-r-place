@@ -123,14 +123,19 @@ export default function Editor({ pixelData: initialPixelData }: EditorProps) {
     });
   };
 
-  const {
-    data: { subscription: authListener },
-  } = supabase.auth.onAuthStateChange(async (event, session) => {
-    if (session) {
-      const jwt = jwtDecode(session.access_token) as any;
-      setUserRole(jwt.user_role);
-    }
-  });
+  useEffect(() => {
+    const {
+      data: { subscription: authListener },
+    } = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (session) {
+        const jwt = jwtDecode(session.access_token) as any;
+        setUserRole(jwt.user_role);
+      }
+    });
+    return () => {
+      authListener.unsubscribe();
+    };
+  }, []);
 
   useEffect(() => {
     const channel = supabase
