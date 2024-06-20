@@ -1,5 +1,6 @@
 import AuthButton from "@/app/components/AuthButton";
 import Editor from "@/app/components/Editor";
+import Footer from "@/app/components/Footer";
 import NavButton from "@/app/components/NavButton";
 import { PixelType } from "@/app/lib/definitions";
 import { fetchPixels } from "@/app/lib/getdata";
@@ -35,19 +36,7 @@ export default async function DashboardPage() {
         </main>
       </div>
 
-      <footer className="flex w-full justify-center border-t border-t-foreground/10 p-8 text-center text-xs">
-        <p>
-          Powered by{" "}
-          <a
-            href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-            target="_blank"
-            className="font-bold hover:underline"
-            rel="noreferrer"
-          >
-            Supabase
-          </a>
-        </p>
-      </footer>
+      <Footer />
     </div>
   );
 }
