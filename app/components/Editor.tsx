@@ -8,6 +8,7 @@ import { createClient } from "@/app/lib/supabase/client";
 import { useEffect, useState } from "react";
 import { CirclePicker } from "react-color";
 import Countdown, { CountdownApi } from "react-countdown";
+import { jwtDecode } from "jwt-decode";
 
 interface EditorProps {
   pixelData: PixelType[];
@@ -37,8 +38,8 @@ const colors = [
 ];
 
 export default function Editor({ pixelData: initialPixelData }: EditorProps) {
-  const [pixelData] = useState(initialPixelData);
   const supabase = createClient();
+  const [pixelData] = useState(initialPixelData);
   const [pixels, setPixels] = useState<PixelType[]>(pixelData);
   const [hex, setHex] = useState("#000000");
   const [showColorPicker, setShowColorPicker] = useState(true);
@@ -46,6 +47,7 @@ export default function Editor({ pixelData: initialPixelData }: EditorProps) {
   const [userAllowed, setUserAllowed] = useState(true);
   const [godModeActive, setGodModeActive] = useState(false);
   const [, setClickCount] = useState(0);
+  const [userRole, setUserRole] = useState("");
   const [endTime, setEndTime] = useState<number | string | Date | undefined>(
     Date.now() + 10000,
   );
@@ -122,6 +124,20 @@ export default function Editor({ pixelData: initialPixelData }: EditorProps) {
   };
 
   useEffect(() => {
+    const {
+      data: { subscription: authListener },
+    } = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (session) {
+        const jwt = jwtDecode(session.access_token) as any;
+        setUserRole(jwt.user_role);
+      }
+    });
+    return () => {
+      authListener.unsubscribe();
+    };
+  }, []);
+
+  useEffect(() => {
     const channel = supabase
       .channel("schema-db-changes")
       .on(
@@ -184,7 +200,9 @@ export default function Editor({ pixelData: initialPixelData }: EditorProps) {
             <div>Exit pixel deletion mode to set colors!</div>
           )}
         </div>
-        <AdminComponent onDeleteSingleActive={handleAdminDeleteSingle} />
+        {userRole === "admin" && (
+          <AdminComponent onDeleteSingleActive={handleAdminDeleteSingle} />
+        )}
       </div>
     </div>
   );
