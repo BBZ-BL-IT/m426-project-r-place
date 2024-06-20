@@ -1,13 +1,13 @@
 "use client";
 
+import AdminComponent from "@/app/components/AdminComponent";
 import Canvas from "@/app/components/Canvas";
+import { savePixelsToDb } from "@/app/lib/actions";
 import { PixelType } from "@/app/lib/definitions";
+import { createClient } from "@/app/lib/supabase/client";
 import { useEffect, useState } from "react";
 import { CirclePicker } from "react-color";
-import AdminComponent from "@/app/components/AdminComponent";
-import { savePixelsToDb } from "@/app/lib/actions";
 import Countdown, { CountdownApi } from "react-countdown";
-import { createClient } from "@/app/lib/supabase/client";
 
 interface EditorProps {
   pixelData: PixelType[];
@@ -44,17 +44,19 @@ export default function Editor({ pixelData: initialPixelData }: EditorProps) {
   const [showColorPicker, setShowColorPicker] = useState(true);
   const [countdownApi, setCountdownApi] = useState<CountdownApi | null>(null);
   const [userAllowed, setUserAllowed] = useState(true);
+  const [godModeActive, setGodModeActive] = useState(false);
+  const [, setClickCount] = useState(0);
   const [endTime, setEndTime] = useState<number | string | Date | undefined>(
     Date.now() + 10000,
   );
 
   const handlePixelUpdate = (pixel: PixelType) => {
-    if (userAllowed && hex != "deleteSingle") {
+    if (userAllowed && hex !== "deleteSingle") {
       savePixelsToDb(pixel.x, pixel.y, hex);
-      if (countdownApi) {
+      if (countdownApi && !godModeActive) {
         setEndTime(Date.now() + 10000);
-        setUserAllowed(false);
         countdownApi.start();
+        setUserAllowed(false);
       }
     }
 
@@ -107,6 +109,18 @@ export default function Editor({ pixelData: initialPixelData }: EditorProps) {
     ]);
   };
 
+  const handleTimerClick = () => {
+    setClickCount((prevCount) => {
+      const newCount = prevCount + 1;
+      if (newCount === 10) {
+        setGodModeActive(true);
+        console.log("God mode activated!");
+        return 0;
+      }
+      return newCount;
+    });
+  };
+
   useEffect(() => {
     const channel = supabase
       .channel("schema-db-changes")
@@ -140,7 +154,10 @@ export default function Editor({ pixelData: initialPixelData }: EditorProps) {
         onPixelClick={handlePixelUpdate}
       />
       <div className="ml-20 content-center">
-        <div className="mb-10 flex items-center justify-center text-3xl">
+        <div
+          className="mb-10 flex items-center justify-center text-3xl"
+          onClick={handleTimerClick}
+        >
           <Countdown
             className={`${userAllowed ? "text-green-500" : "text-red-500"} rounded-xl p-1 font-bold transition-all`}
             date={endTime}
