@@ -1,4 +1,4 @@
-import { OverlayProps, PixelType } from "@/app/lib/definitions";
+import { OverlayProps } from "@/app/lib/definitions";
 import { useState } from "react";
 
 export default function Overlay({ onPixelClick }: OverlayProps) {
