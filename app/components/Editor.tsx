@@ -3,7 +3,12 @@
 import AdminComponent from "@/app/components/AdminComponent";
 import Canvas from "@/app/components/Canvas";
 import { savePixelsToDb } from "@/app/lib/actions";
-import { DbPixelType, EditorProps, PixelType } from "@/app/lib/definitions";
+import {
+  DbPixelType,
+  EditorProps,
+  JwtPayload,
+  PixelType,
+} from "@/app/lib/definitions";
 import { createClient } from "@/app/lib/supabase/client";
 import { useEffect, useState } from "react";
 import { CirclePicker } from "react-color";
@@ -136,7 +141,8 @@ export default function Editor({ pixelData: initialPixelData }: EditorProps) {
       data: { subscription: authListener },
     } = supabase.auth.onAuthStateChange(async (event, session) => {
       if (session) {
-        const jwt = jwtDecode(session.access_token) as any;
+        const jwt: JwtPayload = jwtDecode(session.access_token);
+        console.log(jwt);
         setUserRole(jwt.user_role);
       }
     });
@@ -154,8 +160,9 @@ export default function Editor({ pixelData: initialPixelData }: EditorProps) {
           event: "*",
           schema: "public",
         },
-        (payload: any) => {
+        (payload: RealtimePostgresChangesPayload<DbPixelType>) => {
           if (payload.eventType === "DELETE") {
+            console.log(payload);
             handleDeleteEvent(payload);
           } else if (payload.eventType === "UPDATE") {
             handleUpdateEvent(payload);

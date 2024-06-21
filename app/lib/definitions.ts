@@ -41,3 +41,16 @@ export type OverlayProps = {
 export type Props = ComponentProps<"button"> & {
   pendingText?: string;
 };
+
+export interface JwtPayload {
+  id: string;
+  iss?: string | undefined;
+  sub?: string | undefined;
+  aud?: string | string[] | undefined;
+  exp?: number | undefined;
+  nbf?: number | undefined;
+  iat?: number | undefined;
+  jti?: string | undefined;
+  user_role: string;
+  user_metadata: object;
+}
