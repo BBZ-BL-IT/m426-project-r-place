@@ -1,11 +1,6 @@
 import { Tooltip } from "@/node_modules/@nextui-org/tooltip";
 import Link from "@/node_modules/next/link";
-
-interface NavButtonProps {
-  tooltip: string;
-  link: string;
-  imageSource: string;
-}
+import { NavButtonProps } from "@/app/lib/definitions";
 
 export default function NavButton({
   tooltip,

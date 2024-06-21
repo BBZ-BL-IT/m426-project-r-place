@@ -1,5 +1,3 @@
-import NextLogo from "./NextLogo";
-import SupabaseLogo from "./SupabaseLogo";
 import NavButton from "@/app/components/NavButton";
 import AuthButton from "@/app/components/AuthButton";
 import { NavButtonProps } from "@/app/lib/definitions";

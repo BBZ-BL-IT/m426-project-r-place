@@ -4,3 +4,9 @@ export type PixelType = {
   x: number;
   y: number;
 };
+
+export type NavButtonProps = {
+  tooltip: string;
+  link: string;
+  imageSource: string;
+};
