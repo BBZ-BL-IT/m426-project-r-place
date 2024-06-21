@@ -3,12 +3,13 @@
 import AdminComponent from "@/app/components/AdminComponent";
 import Canvas from "@/app/components/Canvas";
 import { savePixelsToDb } from "@/app/lib/actions";
-import { EditorProps, PixelType } from "@/app/lib/definitions";
+import { DbPixelType, EditorProps, PixelType } from "@/app/lib/definitions";
 import { createClient } from "@/app/lib/supabase/client";
 import { useEffect, useState } from "react";
 import { CirclePicker } from "react-color";
 import Countdown, { CountdownApi } from "react-countdown";
 import { jwtDecode } from "jwt-decode";
+import { RealtimePostgresChangesPayload } from "@supabase/realtime-js";
 
 const colors = [
   "#e6194b",
@@ -79,30 +80,41 @@ export default function Editor({ pixelData: initialPixelData }: EditorProps) {
     }
   };
 
-  const handleDeleteEvent = (payload: any) => {
+  const handleDeleteEvent = (
+    payload: RealtimePostgresChangesPayload<DbPixelType>,
+  ) => {
+    const oldPayload = payload.old as DbPixelType;
     setPixels((prevPixels) =>
-      prevPixels.filter((pixel) => pixel.id !== payload.old.id),
+      prevPixels.filter((pixel) => pixel.id !== oldPayload.id),
     );
   };
 
-  const handleUpdateEvent = (payload: any) => {
+  const handleUpdateEvent = (
+    payload: RealtimePostgresChangesPayload<DbPixelType>,
+  ) => {
+    const oldPayload = payload.old as DbPixelType;
+    const newPayload = payload.new as DbPixelType;
+    console.log(oldPayload, newPayload);
     setPixels((prevPixels) =>
       prevPixels.map((pixel) =>
-        pixel.id === payload.old.id
-          ? { ...pixel, color: payload.new.color }
+        pixel.id === oldPayload.id
+          ? { ...pixel, color: newPayload.color }
           : pixel,
       ),
     );
   };
 
-  const handleInsertEvent = (payload: any) => {
+  const handleInsertEvent = (
+    payload: RealtimePostgresChangesPayload<DbPixelType>,
+  ) => {
+    const newPayload = payload.new as DbPixelType;
     setPixels((prevPixels) => [
       ...prevPixels,
       {
-        id: payload.new.id,
-        x: payload.new.x_position,
-        y: payload.new.y_position,
-        color: payload.new.color,
+        id: newPayload.id,
+        x: newPayload.x_position,
+        y: newPayload.y_position,
+        color: newPayload.color,
       },
     ]);
   };

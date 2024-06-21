@@ -7,6 +7,13 @@ export type PixelType = {
   y: number;
 };
 
+export type DbPixelType = {
+  id: number;
+  x_position: number;
+  y_position: number;
+  color: string;
+};
+
 export type NavButtonProps = {
   tooltip: string;
   link: string;
