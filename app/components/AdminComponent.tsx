@@ -3,10 +3,7 @@ import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import React, { useEffect, useState } from "react";
 import { deleteCanvas } from "@/app/lib/actions";
-
-interface AdminComponentProps {
-  onDeleteSingleActive: (active: boolean) => void;
-}
+import { AdminComponentProps } from "@/app/lib/definitions";
 
 export default function AdminComponent({
   onDeleteSingleActive,

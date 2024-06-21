@@ -3,16 +3,12 @@
 import AdminComponent from "@/app/components/AdminComponent";
 import Canvas from "@/app/components/Canvas";
 import { savePixelsToDb } from "@/app/lib/actions";
-import { PixelType } from "@/app/lib/definitions";
+import { EditorProps, PixelType } from "@/app/lib/definitions";
 import { createClient } from "@/app/lib/supabase/client";
 import { useEffect, useState } from "react";
 import { CirclePicker } from "react-color";
 import Countdown, { CountdownApi } from "react-countdown";
 import { jwtDecode } from "jwt-decode";
-
-interface EditorProps {
-  pixelData: PixelType[];
-}
 
 const colors = [
   "#e6194b",

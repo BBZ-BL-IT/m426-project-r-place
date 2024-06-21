@@ -1,9 +1,5 @@
-import { PixelType } from "@/app/lib/definitions";
+import { OverlayProps, PixelType } from "@/app/lib/definitions";
 import { useState } from "react";
-
-interface OverlayProps {
-  onPixelClick: (pixel: PixelType) => void;
-}
 
 export default function Overlay({ onPixelClick }: OverlayProps) {
   const [hoveredPixel, setHoveredPixel] = useState<{
@@ -31,7 +27,7 @@ export default function Overlay({ onPixelClick }: OverlayProps) {
       grid.push(
         <div
           key={`${x}-${y}`}
-          className={`absolute w-2 h-2 border-l border-t border-gray-200  ${isHovered ? "bg-gray-400" : ""}`}
+          className={`absolute h-2 w-2 border-l border-t border-gray-200 ${isHovered ? "bg-gray-400" : ""}`}
           style={{ left: `${x * 8}px`, top: `${y * 8}px` }}
           onMouseEnter={() => handleMouseEnter(x, y)}
           onMouseLeave={handleMouseLeave}
