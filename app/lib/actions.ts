@@ -46,7 +46,7 @@ export async function deleteCanvas() {
   const supabase = createClient();
 
   try {
-    await supabase.from("pixel").delete().neq("color", "#ffffff");
+    await supabase.from("pixel").delete().neq("color", "thisPixelDoesNotExist");
   } catch (error) {
     console.error("Error deleting canvas");
   }
