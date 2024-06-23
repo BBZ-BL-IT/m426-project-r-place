@@ -99,7 +99,6 @@ export default function Editor({ pixelData: initialPixelData }: EditorProps) {
   ) => {
     const oldPayload = payload.old as DbPixelType;
     const newPayload = payload.new as DbPixelType;
-    console.log(oldPayload, newPayload);
     setPixels((prevPixels) =>
       prevPixels.map((pixel) =>
         pixel.id === oldPayload.id
@@ -142,7 +141,6 @@ export default function Editor({ pixelData: initialPixelData }: EditorProps) {
     } = supabase.auth.onAuthStateChange(async (event, session) => {
       if (session) {
         const jwt: JwtPayload = jwtDecode(session.access_token);
-        console.log(jwt);
         setUserRole(jwt.user_role);
       }
     });
@@ -162,7 +160,6 @@ export default function Editor({ pixelData: initialPixelData }: EditorProps) {
         },
         (payload: RealtimePostgresChangesPayload<DbPixelType>) => {
           if (payload.eventType === "DELETE") {
-            console.log(payload);
             handleDeleteEvent(payload);
           } else if (payload.eventType === "UPDATE") {
             handleUpdateEvent(payload);
