@@ -146,6 +146,14 @@ export default function Editor({ pixelData: initialPixelData }: EditorProps) {
     };
   }, [supabase]);
 
+  useEffect(() => {
+    if (countdownApi) {
+      setEndTime(Date.now() + 10000);
+      countdownApi.start();
+      setUserAllowed(false);
+    }
+  }, [countdownApi]);
+
   return (
     <div className="flex flex-row">
       <Canvas
