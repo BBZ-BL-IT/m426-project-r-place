@@ -39,7 +39,6 @@ export async function savePixelsToDb(
   } catch (error) {
     console.error("Error saving pixels:", error);
   }
-  console.log("Pixels saved successfully at", x, y, "with color", color);
 }
 
 export async function deleteCanvas() {
@@ -50,6 +49,4 @@ export async function deleteCanvas() {
   } catch (error) {
     console.error("Error deleting canvas");
   }
-
-  console.log("Canvas deleted successfully");
 }

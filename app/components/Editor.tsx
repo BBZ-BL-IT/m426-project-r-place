@@ -3,16 +3,18 @@
 import AdminComponent from "@/app/components/AdminComponent";
 import Canvas from "@/app/components/Canvas";
 import { savePixelsToDb } from "@/app/lib/actions";
-import { PixelType } from "@/app/lib/definitions";
+import {
+  DbPixelType,
+  EditorProps,
+  JwtPayload,
+  PixelType,
+} from "@/app/lib/definitions";
 import { createClient } from "@/app/lib/supabase/client";
 import { useEffect, useState } from "react";
 import { CirclePicker } from "react-color";
 import Countdown, { CountdownApi } from "react-countdown";
 import { jwtDecode } from "jwt-decode";
-
-interface EditorProps {
-  pixelData: PixelType[];
-}
+import { RealtimePostgresChangesPayload } from "@supabase/realtime-js";
 
 const colors = [
   "#e6194b",
@@ -83,30 +85,40 @@ export default function Editor({ pixelData: initialPixelData }: EditorProps) {
     }
   };
 
-  const handleDeleteEvent = (payload: any) => {
+  const handleDeleteEvent = (
+    payload: RealtimePostgresChangesPayload<DbPixelType>,
+  ) => {
+    const oldPayload = payload.old as DbPixelType;
     setPixels((prevPixels) =>
-      prevPixels.filter((pixel) => pixel.id !== payload.old.id),
+      prevPixels.filter((pixel) => pixel.id !== oldPayload.id),
     );
   };
 
-  const handleUpdateEvent = (payload: any) => {
+  const handleUpdateEvent = (
+    payload: RealtimePostgresChangesPayload<DbPixelType>,
+  ) => {
+    const oldPayload = payload.old as DbPixelType;
+    const newPayload = payload.new as DbPixelType;
     setPixels((prevPixels) =>
       prevPixels.map((pixel) =>
-        pixel.id === payload.old.id
-          ? { ...pixel, color: payload.new.color }
+        pixel.id === oldPayload.id
+          ? { ...pixel, color: newPayload.color }
           : pixel,
       ),
     );
   };
 
-  const handleInsertEvent = (payload: any) => {
+  const handleInsertEvent = (
+    payload: RealtimePostgresChangesPayload<DbPixelType>,
+  ) => {
+    const newPayload = payload.new as DbPixelType;
     setPixels((prevPixels) => [
       ...prevPixels,
       {
-        id: payload.new.id,
-        x: payload.new.x_position,
-        y: payload.new.y_position,
-        color: payload.new.color,
+        id: newPayload.id,
+        x: newPayload.x_position,
+        y: newPayload.y_position,
+        color: newPayload.color,
       },
     ]);
   };
@@ -128,7 +140,7 @@ export default function Editor({ pixelData: initialPixelData }: EditorProps) {
       data: { subscription: authListener },
     } = supabase.auth.onAuthStateChange(async (event, session) => {
       if (session) {
-        const jwt = jwtDecode(session.access_token) as any;
+        const jwt: JwtPayload = jwtDecode(session.access_token);
         setUserRole(jwt.user_role);
       }
     });
@@ -146,7 +158,7 @@ export default function Editor({ pixelData: initialPixelData }: EditorProps) {
           event: "*",
           schema: "public",
         },
-        (payload: any) => {
+        (payload: RealtimePostgresChangesPayload<DbPixelType>) => {
           if (payload.eventType === "DELETE") {
             handleDeleteEvent(payload);
           } else if (payload.eventType === "UPDATE") {

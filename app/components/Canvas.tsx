@@ -2,14 +2,8 @@
 
 import Overlay from "@/app/components/Overlay";
 import Pixel from "@/app/components/Pixel";
-import { PixelType } from "@/app/lib/definitions";
+import { CanvasProps, PixelType } from "@/app/lib/definitions";
 import { Tooltip } from "@nextui-org/tooltip";
-
-interface CanvasProps {
-  pixelData: PixelType[];
-  showOverlay: boolean;
-  onPixelClick?: (pixel: PixelType) => void;
-}
 
 export default function Canvas({
   pixelData,

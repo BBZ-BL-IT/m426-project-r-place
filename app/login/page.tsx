@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 
 const supabase = createClient();
 
-export default function Login({}: {}) {
+export default function Login() {
   const router = useRouter();
   const [theme, setTheme] = useState("light");
 

@@ -3,7 +3,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "eslint 'app/**/*.{js,ts,tsx}' --fix"
   },
   "dependencies": {
     "@nextui-org/tooltip": "^2.0.34",
@@ -26,12 +27,19 @@
     "typescript": "5.3.3"
   },
   "devDependencies": {
+    "@eslint/compat": "^1.1.0",
+    "@eslint/js": "^9.5.0",
     "@types/node": "20.11.5",
     "@types/react": "18.2.48",
     "@types/react-color": "^3.0.12",
     "@types/react-dom": "18.2.18",
     "encoding": "^0.1.13",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react": "^7.34.3",
+    "globals": "^15.6.0",
     "prettier": "^3.2.5",
-    "prettier-plugin-tailwindcss": "^0.6.3"
+    "prettier-plugin-tailwindcss": "^0.6.3",
+    "typescript-eslint": "^7.13.1"
   }
 }
