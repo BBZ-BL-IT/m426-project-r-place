@@ -7,5 +7,5 @@ export default function Pixel({ pixel }: { pixel: PixelType }) {
     backgroundColor: pixel.color,
   };
 
-  return <div className="absolute w-2 h-2" style={style}></div>;
+  return <div className="absolute h-2 w-2" style={style}></div>;
 }
