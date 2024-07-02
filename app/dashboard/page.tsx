@@ -6,6 +6,12 @@ import { createClient } from "@/app/lib/supabase/server";
 import { redirect } from "next/navigation";
 import Header from "@/app/components/Header";
 
+/**
+ * The dashboard page for the application where users can draw on the canvas and save their drawings to the database.
+ * Users must be logged in to view this page.
+ * @returns {JSX.Element} JSX.Element The rendered dashboard page
+ * @constructor
+ */
 export default async function DashboardPage() {
   const supabase = createClient();
   const pixelData: PixelType[] = await fetchPixels();
