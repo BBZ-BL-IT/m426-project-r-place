@@ -1,0 +1,5 @@
+{
+  "entryPoints": ["./app/**/*.ts", "./app/**/*.tsx"],
+  "out": "docs",
+  "tsconfig": "tsconfig.json"
+}
