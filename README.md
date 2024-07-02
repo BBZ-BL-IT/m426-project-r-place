@@ -9,7 +9,7 @@ The aim of the event is to place a pixel on a canvas every five minutes. The who
 ## Information
 In our application you can also place pixels on a Canva, but you don't have to wait five minutes, just 10 seconds.
 
-## implementation
+## Implementation
 We have implemented our latest project with Next.js. Next.js is an advanced framework that helped us to build a modern and powerful web application.
 
 Supabase impressed us with its easy integration and many features. The real-time features and user-friendly authentication made the work much easier.
