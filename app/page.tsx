@@ -4,6 +4,11 @@ import { PixelType } from "@/app/lib/definitions";
 import { fetchPixels } from "@/app/lib/getdata";
 import Header from "@/app/components/Header";
 
+/**
+ * The index page for the application where users can view the canvas.
+ * All users can view this page.
+ * @returns {JSX.Element} The rendered index page
+ */
 export default async function Index() {
   const pixelData: PixelType[] = await fetchPixels();
 

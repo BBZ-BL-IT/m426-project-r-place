@@ -1,5 +1,8 @@
 import type { ComponentProps } from "react";
 
+/**
+ * All type definitions for the application
+ */
 export type PixelType = {
   id: number;
   color: string;

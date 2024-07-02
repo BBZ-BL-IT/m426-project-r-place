@@ -5,11 +5,17 @@ import React, { useEffect, useState } from "react";
 import { deleteCanvas } from "@/app/lib/actions";
 import { AdminComponentProps } from "@/app/lib/definitions";
 
+/**
+ * Admin component for the dashboard page that lets you delete single pixels or the whole canvas.
+ * @param {AdminComponentProps} props The properties for the AdminComponent (if the delete single pixel button is active)
+ * @returns {JSX.Element} The rendered AdminComponent
+ */
 export default function AdminComponent({
   onDeleteSingleActive,
 }: AdminComponentProps) {
   const [active, setActive] = useState(false);
 
+  /** Opens a confirmation dialog to confirm canvas deletion. */
   const DeleteConfirmDialog = () => {
     confirmAlert({
       title: "Are you sure you want to delete the canvas?",
@@ -25,6 +31,7 @@ export default function AdminComponent({
     });
   };
 
+  /** Toggles the active state for single pixel deletion. */
   const changeActive = () => {
     if (!active) {
       setActive(true);

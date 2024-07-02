@@ -1,21 +1,37 @@
 import { OverlayProps } from "@/app/lib/definitions";
 import { useState } from "react";
 
+/**
+ * Renders an overlay grid for interacting with individual pixels.
+ * @param onPixelClick Callback function when a pixel is clicked.
+ * @returns {JSX.Element} The rendered Overlay component
+ */
 export default function Overlay({ onPixelClick }: OverlayProps) {
   const [hoveredPixel, setHoveredPixel] = useState<{
     x: number;
     y: number;
   } | null>(null);
 
-  const handleMouseEnter = (x: number, y: number) => {
+  /**
+   * Handles mouse enter event on a pixel.
+   * @param x The x-coordinate of the pixel.
+   * @param y The y-coordinate of the pixel.
+   */
+  const handleMouseEnter = (x: number, y: number): void => {
     setHoveredPixel({ x, y });
   };
 
-  const handleMouseLeave = () => {
+  /** Handles mouse leave event on a pixel. */
+  const handleMouseLeave = (): void => {
     setHoveredPixel(null);
   };
 
-  const handleClick = (x: number, y: number) => {
+  /**
+   * Handles click event on a pixel.
+   * @param x The x-coordinate of the clicked pixel.
+   * @param y The y-coordinate of the clicked pixel.
+   */
+  const handleClick = (x: number, y: number): void => {
     onPixelClick({ id: 0, x, y, color: "" });
   };
 

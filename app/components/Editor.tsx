@@ -39,6 +39,13 @@ const colors = [
   "#ffffff",
 ];
 
+/**
+ * The Editor component allows users to interact with a pixel canvas, choosing colors and placing pixels.
+ * It includes functionalities for authenticated users, including role-based access and real-time updates.
+ * @param {EditorProps} props The properties for the Editor component
+ * pixelData: Array of pixel data objects to render on the canvas.
+ * @returns {JSX.Element} The rendered Editor component
+ */
 export default function Editor({ pixelData: initialPixelData }: EditorProps) {
   const supabase = createClient();
   const [pixelData] = useState(initialPixelData);
@@ -54,6 +61,10 @@ export default function Editor({ pixelData: initialPixelData }: EditorProps) {
     Date.now() + 10000,
   );
 
+  /**
+   * Handles pixel update events, saving the updated pixel to the database and managing countdown timers.
+   * @param {PixelType} pixel - The pixel to be updated.
+   */
   const handlePixelUpdate = (pixel: PixelType) => {
     if (userAllowed && hex !== "deleteSingle") {
       savePixelsToDb(pixel.x, pixel.y, hex);
@@ -69,6 +80,10 @@ export default function Editor({ pixelData: initialPixelData }: EditorProps) {
     }
   };
 
+  /**
+   * Toggles the admin delete single pixel mode.
+   * @param {boolean} active - Whether the delete single pixel mode is active.
+   */
   const handleAdminDeleteSingle = (active: boolean) => {
     if (active) {
       setHex("deleteSingle");
@@ -79,12 +94,20 @@ export default function Editor({ pixelData: initialPixelData }: EditorProps) {
     }
   };
 
+  /**
+   * Sets the reference for the countdown timer API.
+   * @param {Countdown | null} countdown - The countdown component instance.
+   */
   const setRef = (countdown: Countdown | null): void => {
     if (countdown) {
       setCountdownApi(countdown.getApi());
     }
   };
 
+  /**
+   * Handles delete events from the real-time database, removing the corresponding pixel.
+   * @param {RealtimePostgresChangesPayload<DbPixelType>} payload - The payload from the real-time database.
+   */
   const handleDeleteEvent = (
     payload: RealtimePostgresChangesPayload<DbPixelType>,
   ) => {
@@ -94,6 +117,10 @@ export default function Editor({ pixelData: initialPixelData }: EditorProps) {
     );
   };
 
+  /**
+   * Handles update events from the real-time database, updating the corresponding pixel.
+   * @param {RealtimePostgresChangesPayload<DbPixelType>} payload - The payload from the real-time database.
+   */
   const handleUpdateEvent = (
     payload: RealtimePostgresChangesPayload<DbPixelType>,
   ) => {
@@ -108,6 +135,10 @@ export default function Editor({ pixelData: initialPixelData }: EditorProps) {
     );
   };
 
+  /**
+   * Handles insert events from the real-time database, adding the new pixel to the state.
+   * @param {RealtimePostgresChangesPayload<DbPixelType>} payload - The payload from the real-time database.
+   */
   const handleInsertEvent = (
     payload: RealtimePostgresChangesPayload<DbPixelType>,
   ) => {
@@ -123,6 +154,7 @@ export default function Editor({ pixelData: initialPixelData }: EditorProps) {
     ]);
   };
 
+  /** Handles click events on the timer, potentially activating god mode. */
   const handleTimerClick = () => {
     setClickCount((prevCount) => {
       const newCount = prevCount + 1;

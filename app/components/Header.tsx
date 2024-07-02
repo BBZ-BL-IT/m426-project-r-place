@@ -2,6 +2,14 @@ import NavButton from "@/app/components/NavButton";
 import AuthButton from "@/app/components/AuthButton";
 import { NavButtonProps } from "@/app/lib/definitions";
 
+/**
+ * The header component that displays the navigation buttons and the AuthButton.
+ * @param {NavButtonProps} props The properties for the Header component
+ * tooltip: The text to display inside the tooltip of the navigation button.
+ * link: The URL to navigate to when the navigation button is clicked.
+ * imageSource: The source URL of the image to display on the navigation button.
+ * @returns {JSX.Element} The rendered Header component
+ */
 export default function Header({ tooltip, link, imageSource }: NavButtonProps) {
   return (
     <div className="w-full">

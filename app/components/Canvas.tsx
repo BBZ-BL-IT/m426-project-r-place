@@ -5,6 +5,14 @@ import Pixel from "@/app/components/Pixel";
 import { CanvasProps, PixelType } from "@/app/lib/definitions";
 import { Tooltip } from "@nextui-org/tooltip";
 
+/**
+ * The Canvas component that renders the pixels and optional overlay.
+ * @param {CanvasProps} props The properties for the Canvas component
+ * pixelData: Array of pixel data objects to render on the canvas.
+ * showOverlay: Determines whether to display an overlay on the canvas.
+ * onPixelClick: Callback function invoked when a pixel is clicked.
+ * @returns {JSX.Element} The rendered Canvas component
+ */
 export default function Canvas({
   pixelData,
   showOverlay,
@@ -18,6 +26,10 @@ export default function Canvas({
     paddingBottom: "512px",
   };
 
+  /**
+   * Handles click events on pixels.
+   * @param pixel The pixel object that was clicked.
+   */
   const handlePixelClick = (pixel: PixelType) => {
     if (onPixelClick) {
       onPixelClick(pixel);

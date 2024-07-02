@@ -1,5 +1,12 @@
 import { createClient } from "@/app/lib/supabase/client";
 
+/**
+ * Save pixels to the database or delete a single pixel
+ * @param x The x position of the pixel
+ * @param y The y position of the pixel
+ * @param color The color of the pixel or "deleteSingle" to delete the pixel
+ * @returns {Promise<void>} Promise<void> - Promise that resolves when the pixel is saved
+ */
 export async function savePixelsToDb(
   x: number,
   y: number,
@@ -41,6 +48,10 @@ export async function savePixelsToDb(
   }
 }
 
+/**
+ * Delete the canvas
+ * @returns {Promise<void>} Promise<void> - Promise that resolves when the canvas is deleted
+ */
 export async function deleteCanvas() {
   const supabase = createClient();
 

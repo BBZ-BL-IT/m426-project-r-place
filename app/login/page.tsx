@@ -9,6 +9,10 @@ import { useRouter } from "next/navigation";
 
 const supabase = createClient();
 
+/**
+ * Login page for the application where you can also sign up and reset your password
+ * @returns {JSX.Element} The rendered login page
+ */
 export default function Login() {
   const router = useRouter();
   const [theme, setTheme] = useState("light");
@@ -20,6 +24,9 @@ export default function Login() {
       }
     });
 
+    /**
+     * Check the user's preferred color scheme and set the theme accordingly
+     */
     const isDarkMode =
       window.matchMedia &&
       window.matchMedia("(prefers-color-scheme: dark)").matches;
