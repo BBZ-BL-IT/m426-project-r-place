@@ -2,10 +2,9 @@ import { OverlayProps } from "@/app/lib/definitions";
 import { useState } from "react";
 
 /**
- *
  * Renders an overlay grid for interacting with individual pixels.
- *
  * @param onPixelClick Callback function when a pixel is clicked.
+ * @returns {JSX.Element} The rendered Overlay component.
  * @constructor
  */
 export default function Overlay({ onPixelClick }: OverlayProps) {
@@ -15,9 +14,7 @@ export default function Overlay({ onPixelClick }: OverlayProps) {
   } | null>(null);
 
   /**
-   *
    * Handles mouse enter event on a pixel.
-   *
    * @param x The x-coordinate of the pixel.
    * @param y The y-coordinate of the pixel.
    */
@@ -25,18 +22,13 @@ export default function Overlay({ onPixelClick }: OverlayProps) {
     setHoveredPixel({ x, y });
   };
 
-  /**
-   * Handles mouse leave event on a pixel.
-   */
-
+  /** Handles mouse leave event on a pixel. */
   const handleMouseLeave = (): void => {
     setHoveredPixel(null);
   };
 
   /**
-   *
-   *  Handles click event on a pixel.
-   *
+   * Handles click event on a pixel.
    * @param x The x-coordinate of the clicked pixel.
    * @param y The y-coordinate of the clicked pixel.
    */

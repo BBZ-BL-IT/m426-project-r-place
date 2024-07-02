@@ -3,11 +3,13 @@ import Link from "next/link";
 import { NavButtonProps } from "@/app/lib/definitions";
 
 /**
- * NavButton component that renders a navigation button with a tooltip.
- *
- * @param tooltip - The text to display inside the tooltip.
- * @param link - The URL to navigate to when the button is clicked.
- * @param imageSource - The source URL of the image to display on the button.
+ * The navigation button component that displays a tooltip and navigates to a link.
+ * @param {NavButtonProps} props The properties for the NavButton component
+ * tooltip: The text to display inside the tooltip of the navigation button.
+ * link: The URL to navigate to when the navigation button is clicked.
+ * imageSource: The source URL of the image to display on the navigation button.
+ * @returns {JSX.Element} The rendered NavButton component
+ * @constructor
  */
 export default function NavButton({
   tooltip,

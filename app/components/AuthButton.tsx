@@ -3,9 +3,10 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 /**
- * Renders a login/logout button based on user authentication status.
- *
- * @returns The rendered login/logout button.
+ * A button that displays the user's email if they are logged in and a logout button.
+ * If the user is not logged in, a login button is displayed.
+ * @returns {JSX.Element} JSX.Element - The rendered AuthButton component
+ * @constructor
  */
 export default async function AuthButton() {
   const supabase = createClient();
@@ -14,10 +15,7 @@ export default async function AuthButton() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  /**
-   * Signs the user out and redirects to the login page.
-   *
-   */
+  /** Signs the user out and redirects to the login page. */
   const signOut = async () => {
     "use server";
 

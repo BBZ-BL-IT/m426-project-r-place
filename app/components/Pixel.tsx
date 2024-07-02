@@ -1,13 +1,10 @@
 import { PixelType } from "@/app/lib/definitions";
 
 /**
- *
- * Pixel component to render a single pixel on the screen.
- * @param pixel The pixel data to be rendered.
- *
- * @returns The JSX element representing the pixel.
+ * Renders a single pixel on the canvas.
+ * @param pixel The pixel object to render.
+ * @constructor
  */
-
 export default function Pixel({ pixel }: { pixel: PixelType }): JSX.Element {
   /**
    * Inline style object for positioning and coloring the pixel
