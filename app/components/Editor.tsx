@@ -58,7 +58,7 @@ export default function Editor({ pixelData: initialPixelData }: EditorProps) {
   const [, setClickCount] = useState(0);
   const [userRole, setUserRole] = useState("");
   const [endTime, setEndTime] = useState<number | string | Date | undefined>(
-      Date.now() + 10000,
+    Date.now() + 10000,
   );
 
   /**
@@ -113,11 +113,11 @@ export default function Editor({ pixelData: initialPixelData }: EditorProps) {
    * @param {RealtimePostgresChangesPayload<DbPixelType>} payload - The payload from the real-time database.
    */
   const handleDeleteEvent = (
-      payload: RealtimePostgresChangesPayload<DbPixelType>,
+    payload: RealtimePostgresChangesPayload<DbPixelType>,
   ) => {
     const oldPayload = payload.old as DbPixelType;
     setPixels((prevPixels) =>
-        prevPixels.filter((pixel) => pixel.id !== oldPayload.id),
+      prevPixels.filter((pixel) => pixel.id !== oldPayload.id),
     );
   };
 
@@ -127,16 +127,16 @@ export default function Editor({ pixelData: initialPixelData }: EditorProps) {
    * @param {RealtimePostgresChangesPayload<DbPixelType>} payload - The payload from the real-time database.
    */
   const handleUpdateEvent = (
-      payload: RealtimePostgresChangesPayload<DbPixelType>,
+    payload: RealtimePostgresChangesPayload<DbPixelType>,
   ) => {
     const oldPayload = payload.old as DbPixelType;
     const newPayload = payload.new as DbPixelType;
     setPixels((prevPixels) =>
-        prevPixels.map((pixel) =>
-            pixel.id === oldPayload.id
-                ? { ...pixel, color: newPayload.color }
-                : pixel,
-        ),
+      prevPixels.map((pixel) =>
+        pixel.id === oldPayload.id
+          ? { ...pixel, color: newPayload.color }
+          : pixel,
+      ),
     );
   };
 
@@ -146,7 +146,7 @@ export default function Editor({ pixelData: initialPixelData }: EditorProps) {
    * @param {RealtimePostgresChangesPayload<DbPixelType>} payload - The payload from the real-time database.
    */
   const handleInsertEvent = (
-      payload: RealtimePostgresChangesPayload<DbPixelType>,
+    payload: RealtimePostgresChangesPayload<DbPixelType>,
   ) => {
     const newPayload = payload.new as DbPixelType;
     setPixels((prevPixels) => [
@@ -191,24 +191,24 @@ export default function Editor({ pixelData: initialPixelData }: EditorProps) {
 
   useEffect(() => {
     const channel = supabase
-        .channel("schema-db-changes")
-        .on(
-            "postgres_changes",
-            {
-              event: "*",
-              schema: "public",
-            },
-            (payload: RealtimePostgresChangesPayload<DbPixelType>) => {
-              if (payload.eventType === "DELETE") {
-                handleDeleteEvent(payload);
-              } else if (payload.eventType === "UPDATE") {
-                handleUpdateEvent(payload);
-              } else {
-                handleInsertEvent(payload);
-              }
-            },
-        )
-        .subscribe();
+      .channel("schema-db-changes")
+      .on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+        },
+        (payload: RealtimePostgresChangesPayload<DbPixelType>) => {
+          if (payload.eventType === "DELETE") {
+            handleDeleteEvent(payload);
+          } else if (payload.eventType === "UPDATE") {
+            handleUpdateEvent(payload);
+          } else {
+            handleInsertEvent(payload);
+          }
+        },
+      )
+      .subscribe();
     return () => {
       supabase.removeChannel(channel);
     };
@@ -223,47 +223,47 @@ export default function Editor({ pixelData: initialPixelData }: EditorProps) {
   }, [countdownApi]);
 
   return (
-      <div className="flex flex-row">
-        <Canvas
-            pixelData={pixels}
-            showOverlay={true}
-            onPixelClick={handlePixelUpdate}
-        />
-        <div className="ml-20 content-center">
-          <div
-              className="mb-10 flex items-center justify-center text-3xl"
-              onClick={handleTimerClick}
-          >
-            <Countdown
-                className={`${userAllowed ? "text-green-500" : "text-red-500"} rounded-xl p-1 font-bold transition-all`}
-                date={endTime}
-                ref={setRef}
-                onComplete={() => setUserAllowed(true)}
-                autoStart={false}
-                daysInHours={true}
+    <div className="flex flex-row">
+      <Canvas
+        pixelData={pixels}
+        showOverlay={true}
+        onPixelClick={handlePixelUpdate}
+      />
+      <div className="ml-20 content-center">
+        <div
+          className="mb-10 flex items-center justify-center text-3xl"
+          onClick={handleTimerClick}
+        >
+          <Countdown
+            className={`${userAllowed ? "text-green-500" : "text-red-500"} rounded-xl p-1 font-bold transition-all`}
+            date={endTime}
+            ref={setRef}
+            onComplete={() => setUserAllowed(true)}
+            autoStart={false}
+            daysInHours={true}
+          />
+        </div>
+        <div
+          className={`h-[210px] w-[260px] content-center rounded-2xl bg-gray-200 pl-4 transition-all dark:bg-gray-700`}
+          style={{ border: `5px solid ${hex}` }}
+        >
+          {showColorPicker ? (
+            <CirclePicker
+              colors={colors}
+              color={hex}
+              circleSize={32}
+              onChange={(color) => {
+                setHex(color.hex);
+              }}
             />
-          </div>
-          <div
-              className={`h-[210px] w-[260px] content-center rounded-2xl bg-gray-200 pl-4 transition-all dark:bg-gray-700`}
-              style={{ border: `5px solid ${hex}` }}
-          >
-            {showColorPicker ? (
-                <CirclePicker
-                    colors={colors}
-                    color={hex}
-                    circleSize={32}
-                    onChange={(color) => {
-                      setHex(color.hex);
-                    }}
-                />
-            ) : (
-                <div>Exit pixel deletion mode to set colors!</div>
-            )}
-          </div>
-          {userRole === "admin" && (
-              <AdminComponent onDeleteSingleActive={handleAdminDeleteSingle} />
+          ) : (
+            <div>Exit pixel deletion mode to set colors!</div>
           )}
         </div>
+        {userRole === "admin" && (
+          <AdminComponent onDeleteSingleActive={handleAdminDeleteSingle} />
+        )}
       </div>
+    </div>
   );
 }

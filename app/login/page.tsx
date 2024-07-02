@@ -13,7 +13,6 @@ import { useRouter } from "next/navigation";
 
 const supabase = createClient();
 
-
 /**
  * Login component that handles user authentication using Supabase.
  */
@@ -28,9 +27,9 @@ export default function Login() {
       }
     });
 
-      /**
-       * Check the user's preferred color scheme and set the theme accordingly
-       */
+    /**
+     * Check the user's preferred color scheme and set the theme accordingly
+     */
     const isDarkMode =
       window.matchMedia &&
       window.matchMedia("(prefers-color-scheme: dark)").matches;

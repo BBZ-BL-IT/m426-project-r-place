@@ -10,15 +10,15 @@ import { NavButtonProps } from "@/app/lib/definitions";
  * @param imageSource - The source URL of the image to display on the button.
  */
 export default function NavButton({
-                                      tooltip,
-                                      link,
-                                      imageSource,
-                                  }: NavButtonProps): JSX.Element {
-    return (
-        <Tooltip content={tooltip} placement="right">
-            <Link className="h-9 w-9 rounded bg-gray-200 p-1 dark:invert" href={link}>
-                <img src={imageSource} alt="dashboard" />
-            </Link>
-        </Tooltip>
-    );
+  tooltip,
+  link,
+  imageSource,
+}: NavButtonProps) {
+  return (
+    <Tooltip content={tooltip} placement="right">
+      <Link className="h-9 w-9 rounded bg-gray-200 p-1 dark:invert" href={link}>
+        <img src={imageSource} alt="dashboard" />
+      </Link>
+    </Tooltip>
+  );
 }
