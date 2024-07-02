@@ -9,7 +9,6 @@ import { NavButtonProps } from "@/app/lib/definitions";
  * link: The URL to navigate to when the navigation button is clicked.
  * imageSource: The source URL of the image to display on the navigation button.
  * @returns {JSX.Element} The rendered Header component
- * @constructor
  */
 export default function Header({ tooltip, link, imageSource }: NavButtonProps) {
   return (

@@ -12,7 +12,6 @@ import { Tooltip } from "@nextui-org/tooltip";
  * showOverlay: Determines whether to display an overlay on the canvas.
  * onPixelClick: Callback function invoked when a pixel is clicked.
  * @returns {JSX.Element} The rendered Canvas component
- * @constructor
  */
 export default function Canvas({
   pixelData,

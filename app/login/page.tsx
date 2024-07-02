@@ -11,8 +11,7 @@ const supabase = createClient();
 
 /**
  * Login page for the application where you can also sign up and reset your password
- * @returns {JSX.Element} JSX.Element The rendered login page
- * @constructor
+ * @returns {JSX.Element} The rendered login page
  */
 export default function Login() {
   const router = useRouter();

@@ -1,7 +1,6 @@
 /**
  * Footer component that displays the creators of the application.
  * @returns {JSX.Element} The rendered Footer component
- * @constructor
  */
 export default function Footer() {
   return (

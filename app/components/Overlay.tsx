@@ -4,8 +4,7 @@ import { useState } from "react";
 /**
  * Renders an overlay grid for interacting with individual pixels.
  * @param onPixelClick Callback function when a pixel is clicked.
- * @returns {JSX.Element} The rendered Overlay component.
- * @constructor
+ * @returns {JSX.Element} The rendered Overlay component
  */
 export default function Overlay({ onPixelClick }: OverlayProps) {
   const [hoveredPixel, setHoveredPixel] = useState<{

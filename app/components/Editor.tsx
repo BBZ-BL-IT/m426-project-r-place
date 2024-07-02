@@ -45,7 +45,6 @@ const colors = [
  * @param {EditorProps} props The properties for the Editor component
  * pixelData: Array of pixel data objects to render on the canvas.
  * @returns {JSX.Element} The rendered Editor component
- * @constructor
  */
 export default function Editor({ pixelData: initialPixelData }: EditorProps) {
   const supabase = createClient();

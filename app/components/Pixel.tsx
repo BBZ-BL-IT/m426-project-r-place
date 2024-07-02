@@ -3,9 +3,9 @@ import { PixelType } from "@/app/lib/definitions";
 /**
  * Renders a single pixel on the canvas.
  * @param pixel The pixel object to render.
- * @constructor
+ * @returns {JSX.Element} The rendered Pixel component
  */
-export default function Pixel({ pixel }: { pixel: PixelType }): JSX.Element {
+export default function Pixel({ pixel }: { pixel: PixelType }) {
   /**
    * Inline style object for positioning and coloring the pixel
    */

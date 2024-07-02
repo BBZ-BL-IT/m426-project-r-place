@@ -9,7 +9,6 @@ import { AdminComponentProps } from "@/app/lib/definitions";
  * Admin component for the dashboard page that lets you delete single pixels or the whole canvas.
  * @param {AdminComponentProps} props The properties for the AdminComponent (if the delete single pixel button is active)
  * @returns {JSX.Element} The rendered AdminComponent
- * @constructor
  */
 export default function AdminComponent({
   onDeleteSingleActive,
