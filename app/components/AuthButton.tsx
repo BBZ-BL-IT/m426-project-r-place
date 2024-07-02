@@ -2,6 +2,11 @@ import { createClient } from "@/app/lib/supabase/server";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
+/**
+ * Renders a login/logout button based on user authentication status.
+ *
+ * @returns The rendered login/logout button.
+ */
 export default async function AuthButton() {
   const supabase = createClient();
 
@@ -9,6 +14,10 @@ export default async function AuthButton() {
     data: { user },
   } = await supabase.auth.getUser();
 
+  /**
+   * Signs the user out and redirects to the login page.
+   *
+   */
   const signOut = async () => {
     "use server";
 
