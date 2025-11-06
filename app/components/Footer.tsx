@@ -32,7 +32,7 @@ export default function Footer() {
           Levin Fankhauser
         </a>
         <a
-          href="https://github.com/TobiTopp"
+          href="https://github.com/topptobi"
           target="_blank"
           className="font-bold hover:underline"
           rel="noreferrer"
