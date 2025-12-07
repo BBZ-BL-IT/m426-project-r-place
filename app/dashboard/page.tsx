@@ -1,10 +1,10 @@
 import Editor from "@/app/components/Editor";
 import Footer from "@/app/components/Footer";
+import Header from "@/app/components/Header";
 import { PixelType } from "@/app/lib/definitions";
 import { fetchPixels } from "@/app/lib/getdata";
 import { createClient } from "@/app/lib/supabase/server";
 import { redirect } from "next/navigation";
-import Header from "@/app/components/Header";
 
 /**
  * The dashboard page for the application where users can draw on the canvas and save their drawings to the database.
@@ -12,7 +12,7 @@ import Header from "@/app/components/Header";
  * @returns {JSX.Element} JSX.Element The rendered dashboard page
  */
 export default async function DashboardPage() {
-  const supabase = createClient();
+  const supabase = await createClient();
   const pixelData: PixelType[] = await fetchPixels();
 
   const {
